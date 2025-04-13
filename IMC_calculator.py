@@ -1,46 +1,40 @@
-#               Pedimos y validamos el valor de Peso
-while True:
-    peso = float(input('Ingrese su peso en Kg: '))
+#           Variable para pedir numeros
+def pedir_float(mensaje, minimo, maximo):
+    while True:
+        pedir_valor = input(mensaje)
+        
+        try:
+            valor = float(pedir_valor)
+            if valor < minimo or valor > maximo:
+                print(f'el valor ingresado debe estar entre {minimo} y {maximo}.')
+            else:
+                return valor # en la funcion no usamos break, usamos RETURN, ya que asi se termina el bucle y ademas se guarda el valor de la VARIABLE            
 
-    try:
-        PesoValid = float(peso)
-        
-        if PesoValid <= 0 or PesoValid >= 400:
-            print('El valor indicado para el Peso es invalido, intentelo de nuevo.')    
-        else:
-            break
-        
-    except ValueError:
-        print('Ingresa un valor valido para el Peso.')
+        except ValueError:
+            print("Ingrese un numero valido")
 
-#               Pedimos y validamos el valor de Altura
-while True:
-    altura = float(input('Ingrese su altura en Metros: '))
-    
-    try:
-        AlturaValid = float(altura)
-        
-        if AlturaValid <= 0 or AlturaValid >= 3:
-            print('El valor indicado para la Altura es invalido, intentalo de nuevo.')
-        else:
-            break
-        
-    except ValueError:
-        print('Ingrese un valor valido para la Altura.')
-        
-#               Calculamos el IMC --> IMC = peso / (altura ** 2)
-imc = peso / (altura ** 2)
-print(f"\nTu IMC es: {imc:.2f}") #:2f hace que el valor de imc (al ser un float) corte en 2 decimales
+def calcular_imc(peso, altura):
+    return peso / (altura ** 2)
 
-if imc < 18.5:
-    print("Clasificación: Bajo peso")
-elif imc < 25:
-    print("Clasificación: Peso normal")
-elif imc < 30:
-    print("Clasificación: Sobrepeso")
-elif imc < 35:
-    print("Clasificación: Obesidad grado 1")
-elif imc < 40:
-    print("Clasificación: Obesidad grado 2")
-else:
-    print("Clasificación: Obesidad grado 3 (mórbida)")
+def clasificar_imc(imc):
+    if imc < 18.5:
+        print("Clasificación: Bajo peso ⚠️")
+    elif imc < 25:
+        print("Clasificación: Peso normal ✅")
+    elif imc < 30:
+        print("Clasificación: Sobrepeso ⚠️")
+    elif imc < 35:
+        print("Clasificación: Obesidad grado 1 ❗")
+    elif imc < 40:
+        print("Clasificación: Obesidad grado 2 ❗❗")
+    else:
+        print("Clasificación: Obesidad grado 3 (mórbida) 🚨")
+#       Apartado grafico del programa        
+
+print("📊 Calculadora de IMC - Índice de Masa Corporal")
+
+peso = pedir_float('Ingrese su peso en Kg: ', 1, 400)
+altura = pedir_float('Ingrese su altura en Metros: ', 0.5, 3)
+
+imc = calcular_imc(peso, altura)
+clasificar_imc(imc)
